@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit password</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+<form th:object="${user}" method="post">
+    <table border="1">
+        <tr th:if="${password_error == 'error'}">
+            <td class="alginCenter error" colspan="2">Pola hasł i powtórz hasło nie są identyczne!</td>
+        </tr>
+        <tr>
+            <td class="alginCenter">hasło:</td>
+            <td class="alginCenter"><input type="password" th:field="*{password}"></td>
+        </tr>
+        <tr>
+            <td class="alginCenter">powtórz hasło:</td>
+            <td class="alginCenter"><input type="password" name="repassword"></td>
+        </tr>
+        <tr>
+            <input type="hidden" th:field="*{id}">
+            <input type="hidden" th:field="*{name}">
+            <input type="hidden" th:field="*{surname}">
+            <input type="hidden" th:field="*{email}">
+            <td><button type="submit" name="save">ZAPISZ</button></td>
+            <td><button type="submit" name="cancel">CANCEL</button></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

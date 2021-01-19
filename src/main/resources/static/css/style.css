@@ -1,0 +1,10 @@
+.error{
+	color: red;
+	text-decoration: underline;
+	font-family: "Fantasy", monospace;
+}
+
+.alginCenter{
+    text-align: center;
+    vertical-align: middle;
+}

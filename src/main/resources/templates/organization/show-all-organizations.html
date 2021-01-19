@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show all organizations</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <script type="text/javascript" th:src="@{/js/serchOrganization.js}"></script>
+</head>
+<body>
+<div th:if="${showParam != null}">
+    <h3>Lista wszystkich kontrachentów z bazy danych:</h3>
+    <table border="1">
+        <tr>
+            <th class="alginCenter">LP</th>
+            <th class="alginCenter">Nazwa<br>kontrachenta</th>
+            <th class="alginCenter">NIP</th>
+            <th class="alginCenter">REGON</th>
+            <th class="alginCenter">Wszyskie<br>informacje</th>
+            <th class="alginCenter">Edytuj</th>
+            <th class="alginCenter">Usuń</th>
+        </tr>
+        <tr th:each="organization, iter: ${organizations}">
+            <td class="alginCenter" th:text="${iter.index+1}"></td>
+            <td class="alginCenter" th:text="${organization.name}"></td>
+            <td class="alginCenter" th:text="${organization.nip}"></td>
+            <td class="alginCenter" th:text="${organization.regon}"></td>
+            <td class="alginCenter"><a th:href="@{/organization/details/{id}(id=${organization.id})}">ZOBACZ</a></td>
+            <td class="alginCenter"><a th:href="@{/organization/edit/{id}(id=${organization.id})}">EDYTUJ</a></td>
+            <td class="alginCenter"><a th:href="@{/organization/delete/{id}(id=${organization.id})}">USUŃ</a></td>
+        </tr>
+    </table>
+</div>
+<div th:if="${showParam == null}">
+    <h3>Wyniki wyszukiwania po <label th:text="${info}"></label>:</h3>
+    <table border="1">
+        <tr>
+            <th class="alginCenter">LP</th>
+            <th class="alginCenter">Nazwa<br>kontrachenta</th>
+            <th class="alginCenter">NIP</th>
+            <th class="alginCenter">REGON</th>
+            <th class="alginCenter">Wszyskie<br>informacje</th>
+            <th class="alginCenter">Edytuj</th>
+            <th class="alginCenter">Usuń</th>
+        </tr>
+        <tr th:each="org, iter: ${listOrganizations}">
+            <td class="alginCenter" th:text="${iter.index+1}"></td>
+            <td class="alginCenter" th:text="${org.name}"></td>
+            <td class="alginCenter" th:text="${org.nip}"></td>
+            <td class="alginCenter" th:text="${org.regon}"></td>
+            <td class="alginCenter"><a th:href="@{/organization/details/{id}(id=${org.id})}">ZOBACZ</a></td>
+            <td class="alginCenter"><a th:href="@{/organization/edit/{id}(id=${org.id})}">EDYTUJ</a></td>
+            <td class="alginCenter"><a th:href="@{/organization/delete/{id}(id=${org.id})}">USUŃ</a></td>
+        </tr>
+    </table>
+</div>
+<br>
+<form th:action="@{/organization/search}" method="get">
+    <table>
+        <tr>
+            <td>
+                Wyszukiwanie po:
+            </td>
+            <td>
+                <select id="search" name="what">
+                    <option value="nazwa" >Nazwa firmy</option>
+                    <option value="nip"  >NIP firmy  </option>
+                    <option value="regon">REGON firm </option>
+                </select>
+                <input id="hs" type="hidden" name="howToSearch" value="name">
+            </td>
+            <td id="insertInput">
+                <input id="toReplace" type="text" name="searchArea">
+            </td>
+            <td id="insertButton">
+                <button type="submit" name="search">SZUKAJ</button>
+            </td>
+            <td th:if="${showParam == null}">
+                <button type="submit" name="clear">WYCZYŚĆ</button>
+            </td>
+        </tr>
+    </table>
+</form>
+<br>
+<div class="button">
+    <div class="leftButton"><a th:href="@{/organization/add-new-organization}">Dodaj organizację</a></div>
+</div>
+</body>
+</html>

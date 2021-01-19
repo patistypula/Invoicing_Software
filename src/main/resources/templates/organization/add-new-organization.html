@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new organization</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+<h3>Dodaj nowego kontrachenta:</h3>
+<form th:object="${organization}" method="post">
+    <table border="1">
+        <tr>
+            <td class="alginCenter">Nazwa:</td>
+            <td class="alginCenter" colspan="3">
+<!--                <textarea th:field="*{organization}"></textarea>-->
+                <input type="text" width="100%" th:field="*{name}">
+                <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="#{name}">
+                    Nazwa organizacji musi zaiwerać od 3 do 100 znaków!
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="alginCenter">Miasto:</td>
+            <td class="alginCenter" colspan="3">
+                <input type="text" width="100%" th:field="*{city}">
+                <p class="error" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">
+                    Nazwa miasta musi zawierać od 2 do 40 znaków
+                </p>
+            </td>
+            <td class="alginCenter">Kod:</td>
+            <td class="alginCenter">
+                <input type="text" pattern="\d{2}[-]\d{3}" width="100%" th:field="*{postcode}" placeholder="XX-XXX">
+                <p class="error" th:if="${#fields.hasErrors('postcode')}" th:errors="*{postcode}">
+                    Zły format kodu pocztowego
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="alginCenter">Ulica:</td>
+            <td class="alginCenter">
+                <input type="text" width="100%" th:field="*{street}">
+                <p class="error" th:if="${#fields.hasErrors('street')}" th:errors="*{street}">
+                    Nazwa ulicy musi zaiwerać od 2 do 60 znaków
+                </p>
+            </td>
+            <td class="alginCenter">Nr domu:</td>
+            <td class="alginCenter">
+                <input type="text" width="100%" th:field="*{building}">
+                <p class="error" th:if="${#fields.hasErrors('building')}" th:errors="*{building}">
+                    Niepoprawny format nr budynku
+                </p>
+            </td>
+            <td class="alginCenter">Mieszkanie:</td>
+            <td class="alginCenter"><input type="text" width="100%" th:field="*{flat}"></td>
+        </tr>
+        <tr>
+            <td class="alginCenter">NIP</td>
+            <td class="alginCenter" colspan="2">
+                <input type="text" width="100%" th:field="*{nip}" pattern="\d{3}[-]\d{3}[-]\d{2}[-]\d{2}"
+                       placeholder="XXX-XXX-XX-XX">
+                <p class="error" th:if="${#fields.hasErrors('nip')}" th:errors="*{nip}">
+                    Niepoprawny format NIPu
+                </p>
+            </td>
+            <td class="alginCenter">REGON</td>
+            <td class="alginCenter" colspan="2">
+                <input type="text" width="100%" th:field="*{regon}" patter="\d{14}|\d{9}" placeholder="XXXXXXXXX">
+                <p class="error" th:if="${#fields.hasErrors('regon')}" th:errors="*{regon}">
+                    Niepoprawny format REGONu
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="alginCenter" colspan="3"><button type="submit" name="save">ZAPISZ</button></td>
+            <td class="alginCenter" colspan="3"><button type="submit" name="cancel">ANULUJ</button> </td>
+        </tr>
+    </table>
+</form>
+<br>
+</body>
+</html>

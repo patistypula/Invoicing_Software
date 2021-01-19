@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>EDIT USER</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form th:object="${user}" method="post">
+    <table>
+        <tr>
+            <td class="alginCenter">Imię:</td>
+            <td class="alginCenter"><input type="text" th:field="*{user.name}"></td>
+            <td class="alginCenter">Nazwisko:</td>
+            <td class="alginCenter"><input type="text" th:field="*{user.surname}"></td>
+        </tr>
+        <tr>
+            <td class="alginCenter">Nazwa firmy:</td>
+            <td class="alginCenter" colspan="3"><input type="text" th:field="*{organization.name}"></td>
+        </tr>
+        <tr>
+            <td class="alginCenter">Miasto:</td>
+            <td class="alginCenter"><input type="text" th:field="*{organization.city}"></td>
+            <td class="alginCenter">Kod pocztowy:</td>
+            <td class="alginCenter"><input type="text" th:field="*{organization.postcode}"></td>
+            <input type="hidden" th:field="*{user.id}">
+            <input type="hidden" th:field="*{organization.id}">
+            <input type="hidden" th:field="*{user.password}">
+        </tr>
+        <tr>
+            <td class="alginCenter">Ulica:</td>
+            <td class="alginCenter" colspan="3"><input type="text" th:field="*{organization.street}"></td>
+        </tr>
+        <tr>
+            <td class="alginCenter">Nr budynku:</td>
+            <td class="alginCenter"><input type="text" th:field="*{organization.building}"></td>
+            <td class="alginCenter">Nr mieszkania:</td>
+            <td class="alginCenter"><input type="text" th:field="*{organization.flat}"></td>
+        </tr>
+        <tr>
+            <td class="alginCenter">Email:</td>
+            <td class="alginCenter" colspan="3"><input type="email" th:field="*{user.email}"></td>
+        </tr>
+        <tr>
+            <td class="alginCenter">NIP:</td>
+            <td class="alginCenter" colspan="3"><input type="text" th:field="*{organization.nip}"></td>
+        </tr>
+        <tr>
+            <td class="alginCenter">REGON:</td>
+            <td class="alginCenter" colspan="3"><input type="text" th:field="*{organization.regon}"></td>
+        </tr>
+        <tr th:if="${bank_error == 'error'}">
+            <td class="alginCenter error" colspan="4">Numer konta bankowego musi mieć 26 cyfr!</td>
+        </tr>
+        <tr>
+            <td class="alginCenter">Nr konta:</td>
+            <td class="alginCenter" colspan="3">
+                <input type="text" th:field="*{user.bank_account}"
+                       pattern="\d{2}[ ]\d{4}[ ]\d{4}[ ]\d{4}[ ]\d{4}[ ]\d{4}[ ]\d{4}"
+                       placeholder="XX-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX">
+            </td>
+        </tr>
+<!--        <tr class="error" th:if="${#fields.hasErrors('user.bank_account')}" th:errors="*{user.bank_account}">-->
+<!--            <td colspan="4">Konto musi mieć 26 cyfr</td>-->
+<!--        <tr>-->
+            <td class="alginCenter"><button type="submit" name="save">ZAPISZ</button></td>
+            <td class="alginCenter"><button type="submit" name="cancel">ANULUJ</button></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

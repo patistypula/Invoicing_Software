@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show details organization</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+<h3>Dane kontrachenta <label th:text="${organization.name}"></label></h3>
+<table border="1">
+    <tr>
+        <td class="alginCenter">Miasto:</td>
+        <td class="alginCenter" colspan="3" th:text="*{city}"></td>
+        <td class="alginCenter">Kod:</td>
+        <td class="alginCenter" th:text="${organization.postcode}"></td>
+    </tr>
+    <tr>
+        <td class="alginCenter">Ulica:</td>
+        <td class="alginCenter" th:text="${organization.street}"></td>
+        <td class="alginCenter">Nr domu:</td>
+        <td class="alginCenter" th:text="${organization.building}"></td>
+        <td class="alginCenter">Mieszkanie:</td>
+        <td class="alginCenter" th:text="${organization.flat}"></td>
+    </tr>
+    <tr>
+        <td class="alginCenter">NIP</td>
+        <td class="alginCenter" colspan="2" th:text="${organization.nip}"></td>
+        <td class="alginCenter">REGON</td>
+        <td class="alginCenter" colspan="2" th:text="${organization.regon}"></td>
+    </tr>
+</table>
+<br>
+<div class="button">
+    <div class="leftButton"><a th:href="@{/organization/show-all-organizations}">Wróć do listy</a></div>
+    <div class="middleButton"><a th:href="@{/organization/edit/{id}(id=${organization.id})}">EDYTUJ</a></div>
+    <div class="rightButton"><a th:href="@{/organization/delete/{id}(id=${organization.id})}">USUŃ</a></div>
+</div>
+</body>
+</html>

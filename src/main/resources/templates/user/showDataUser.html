@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User page</title>
+    <!--    <link th:href="@{/css/style.css}" rel="stylesheet" />-->
+</head>
+<body>
+<table>
+    <tr>
+        <td>Imię:</td>
+        <td><input type="text" th:field="${user.name}"></td>
+        <td>Nazwisko:</td>
+        <td><input type="text" th:field="${user.surname}"></td>
+    </tr>
+    <tr>
+        <td>Nazwa firmy:</td>
+        <td colspan="3"><input type="text" th:field="${organization.name}"></td>
+    </tr>
+    <tr>
+        <td>Miasto:</td>
+        <td><input type="text" th:field="${organization.city}"></td>
+        <td>Kod pocztowy:</td>
+        <td><input type="text" th:field="${organization.postcode}"></td>
+    </tr>
+    <tr>
+        <td>Ulica:</td>
+        <td colspan="3"><input type="text" th:field="${organization.street}"></td>
+    </tr>
+    <tr>
+        <td>Nr budynku:</td>
+        <td><input type="text" th:field="${organization.building}"></td>
+        <td>Nr mieszkania:</td>
+        <td><input type="text" th:field="${organization.flat}"></td>
+    </tr>
+    <tr>
+        <td>NIP:</td>
+        <td colspan="3"><input type="text" th:field="${organization.nip}"></td>
+    </tr>
+    <tr>
+        <td>REGON:</td>
+        <td colspan="3"><input type="text" th:field="${organization.regon}"></td>
+    </tr>
+    <tr>
+        <td>Nr konta:</td>
+        <td colspan="3"><input type="text" th:field="${user.bank_account}"></td>
+    </tr>
+</table>
+<a th:href="@{/user/edit-email-password}">Zmień email i hasło</a>
+<a th:href="@{/user/edit-adress-data}">Edit user</a>
+</body>
+</html>
