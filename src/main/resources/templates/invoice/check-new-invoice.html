@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Check New Invoice</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <script type="text/javascript" th:src="@{/js/showInvoice.js}"></script>
+</head>
+<body>
+<form th:object="${invoice}" method="post">
+    <table border="1">
+        <tr>
+            <td>
+                Rodzaj faktury:
+            </td>
+            <td>
+                <select  th:field="*{kindInvoicing}" disabled>
+                    <option value="FA" >Faktura</option>
+                    <option value="PRO">Faktura pro-forma</option>
+                    <option value="FZ" >Faktura zaliczkowa</option>
+                    <option value="FK" >Faktura końcowa</option>
+                </select>
+                <input type="hidden" th:field="*{kindInvoicing}">
+            </td>
+            <td>
+                Nr Faktury:
+            </td>
+            <td>
+                <input type="text" th:field="*{numberInvoicing}" disabled>
+                <input type="hidden" th:field="*{numberInvoicing}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Data wystawienia:
+            </td>
+            <td>
+                <input type="date" th:field="*{dateOfIssue}" disabled>
+                <input type="hidden" th:field="*{dateOfIssue}">
+            </td>
+            <td>
+                Data spredaży:
+            </td>
+            <td>
+                <input type="date" th:field="*{saleDate}" disabled>
+                <input type="hidden" th:field="*{saleDate}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Nabywca:
+            </td>
+            <td colspan="3">
+                <table border="0">
+                    <tr>
+                        <td colspan="3" th:text="*{organization.name}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="*{organization.postcode}"></td>
+                        <td th:text="*{organization.city}"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td th:text="*{organization.street}"></td>
+                        <td th:text="*{organization.building}"></td>
+                        <td th:text="*{organization.flat}"></td>
+                    </tr>
+                    <tr>
+                        <td>nip:</td>
+                        <td th:text="*{organization.nip}"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>regon:</td>
+                        <td th:text="*{organization.regon}"></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Kwota netto:
+            </td>
+            <td>
+                <input id="netto" type="number" step="0.01" th:field="*{netto}" disabled>
+                <input type="hidden" th:field="*{netto}">
+            </td>
+            <td>
+                Kwota brutto:
+            </td>
+            <td>
+                <input id="brutto" type="number" step="0.01" th:field="*{brutto}" disabled>
+                <input type="hidden" th:field="*{brutto}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Stawka VAT:
+            </td>
+            <td>
+                <input id="vat" type="number" th:field="*{vat}" disabled>
+                <input type="hidden" th:field="*{vat}">
+            </td>
+            <td>
+                Kwota Podatku:
+            </td>
+            <td>
+                <input id="taxa" type="number" disabled>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Towar/usługa:
+            </td>
+            <td colspan="3">
+            <textarea  rows = "10" cols = "80" disabled th:field="*{descryptionSaleProduct}">
+            </textarea>
+                <input type="hidden" th:field="*{descryptionSaleProduct}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Metoda płatności:
+            </td>
+            <td colspan="2">
+                <select  th:field="*{paymentMethod}" disabled>
+                    <option value="transfer"  >Przelew</option>
+                    <option value="cash"      >Gotówka</option>
+                    <option value="card"      >Karta</option>
+                    <option value="prepayment">Przedpłata</option>
+                    <option value="download"  >Pobranie</option>
+                </select>
+                <input type="hidden" th:field="*{paymentMethod}">
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        <input type="hidden" th:field="*{organization.id}">
+        <tr>
+            <td>
+                <button type="submit" name="okCheckNewInvoice">WYSTAW</button>
+            </td>
+            <td>
+                <button type="submit" name="editNewInvoice">EDYTUJ</button>
+            </td>
+            <td>
+
+            </td>
+            <td>
+                <button type="submit" name="cancelNewInvocie">ANULUJ</button>
+            </td>
+
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

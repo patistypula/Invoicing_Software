@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice page</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+<table>
+    <tr>
+        <td>
+            Przeglądaj listę faktur:
+        </td>
+        <td>
+            <a th:href="@{/invoice/showAllInvoice}"><button>PRZEGLADAJ</button></a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Utwórz nową fakturę:
+        </td>
+        <td>
+            <a th:href="@{/invoice/newInvoice}"><button>WYSTAW</button></a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Faktura korekta:
+        </td>
+        <td>
+            <a th:href="@{/invoice/invoiceCorrection}"><button>KOREKTA</button></a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

@@ -20,27 +20,7 @@ public class UserController {
 
     @RequestMapping(value = "/show-data-User", method = RequestMethod.GET)
     public String showDataUser(Model model){
-        if(userService.getUserById()==null){
-            User user = new User();
-            user.setName("user");
-            user.setSurname("surname");
-            user.setBank_account("XX XXXX XXXX XXXX XXXX XXXX XXXX");
-            user.setEmail("user@email.com");
-            String salt = BCrypt.gensalt();
-            user.setPassword(BCrypt.hashpw("user1", salt));
-            userService.saveUser(user);
-        }
-        if(organizationService.getFirstOrganization()==null){
-            Organization organization = new Organization();
-            organization.setCity("City");
-            organization.setPostcode("XX-XXX");
-            organization.setStreet("street");
-            organization.setBuilding(null);
-            organization.setFlat(null);
-            organization.setNip(null);
-            organization.setRegon(null);
-            organizationService.saveOrganization(organization);
-        }
+
         model.addAttribute("user", userService.getUserById());
         model.addAttribute("organization", organizationService.getFirstOrganization());
         return "user/showDataUser";

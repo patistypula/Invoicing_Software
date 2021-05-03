@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Invoice</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+<!--    <script type="text/javascript" th:src="@{/js/invoice.js}"></script>-->
+</head>
+<body>
+<table>
+    <form method="get" th:action="@{/invoice/filter}">
+        <tr>
+            <td>
+                Rodzaj faktur:
+            </td>
+            <td>
+                <select id="invoice" name="invoice" th:value="${invoices}">
+                    <option value="ALL">Wszystkie faktury</option>
+                    <option value="FA" >Faktury</option>
+                    <option value="PRO">Faktury Pro-forma</option>
+                    <option value="FZ" >Faktury zaliczkowe</option>
+                    <option value="FK"> Faktury końcowe</option>
+                    <option value="KOR">Faktury korekty</option>
+                </select>
+            </td>
+            <td>
+                Rok:
+            </td>
+            <td>
+                <select id="year" name="year" th:value="${year}">
+                    <option value="0">Wszystkie lata</option>
+                    <option th:each="year : ${years}" th:value="${year}" th:text="${year}"></option>
+                </select>
+            </td>
+            <td>
+                <button type="submit">FILTRUJ</button>
+            </td>
+        </tr>
+    </form>
+</table>
+<h3>Lista wszystkich faktur za rok <label th:text="${maxYear}"></label>:</h3>
+<table border="1">
+    <tr>
+        <th>
+            LP
+        </th>
+        <th>
+            Nr faktury
+        </th>
+        <th>
+            Rodzaj
+        </th>
+        <th>
+            Data wystawienia
+        </th>
+        <th>
+            Data sprzedaży
+        </th>
+        <th>
+            Kwota Netto
+        </th>
+        <th>
+            Kwota Brutto
+        </th>
+        <th>
+            VAT
+        </th>
+        <th colspan="2">
+            DZIALANIA
+        </th>
+    </tr>
+    <tr th:each="invoice, iter:${invoices}">
+        <td th:text="${iter.index+1}"></td>
+        <td th:text="${invoice.numberInvoicing}"></td>
+        <td th:text="${invoice.kindInvoicing}"></td>
+        <td th:text="${invoice.dateOfIssue}"></td>
+        <td th:text="${invoice.saleDate}"></td>
+        <td th:text="${invoice.netto}"></td>
+        <td th:text="${invoice.brutto}"></td>
+        <td th:text="${invoice.vat}"></td>
+        <td>
+<!--            <a th:href="@{/"}>-->
+                <button>SZCZEGÓŁY</button></a>
+        </td>
+        <td>
+            <a th:href="@{/invoice/correctionInvoice/{id} (id=${invoice.id})}">
+                <button>KOREKTA</button></a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

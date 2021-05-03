@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show Invoice</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <script type="text/javascript" th:src="@{/js/showInvoice.js}"></script>
+</head>
+<body>
+<table border="1">
+    <form th:object="${invoice}" method="post">
+        <tr>
+            <td>
+                Rodzaj faktury:
+            </td>
+            <td>
+                <select  th:field="*{kindInvoicing}" disabled>
+                    <option value="FA" >Faktura</option>
+                    <option value="PRO">Faktura pro-forma</option>
+                    <option value="FZ" >Faktura zaliczkowa</option>
+                    <option value="FK" >Faktura końcowa</option>
+                    <option value="FKOR">Faktura korygująca</option>
+                </select>
+                <input type="hidden" th:field="*{kindInvoicing}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Nr korygowanej faktury:
+            </td>
+            <td colspan="2">
+                <input type="text" th:value="*{additionals[0].numberInvoicing}" disabled>
+<!--                <select th:field="*{additionals}">-->
+<!--                    <option th:each="addition: ${invoice.additionals}"-->
+<!--                             th:value="${addition.numberInvoicing}"-->
+<!--                             th:text="${addition.numberInvoicing}">-->
+<!--                    </option>-->
+<!--                </select>-->
+                z dnia
+                <input type="text" th:value="${day}" disabled>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                Data wystawienia korekty:
+            </td>
+            <td>
+                <input type="date" th:field="*{dateOfIssue}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Data sprzedaży:
+            </td>
+            <td>
+                <input type="date" th:value="*{saleDate}">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table border="0">
+                    <tr>
+                        <td colspan="3" th:text="*{organization.name}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="*{organization.postcode}"></td>
+                        <td th:text="*{organization.city}"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td th:text="*{organization.street}"></td>
+                        <td th:text="*{organization.building}"></td>
+                        <td th:text="*{organization.flat}"></td>
+                    </tr>
+                    <tr>
+                        <td>nip:</td>
+                        <td th:text="*{organization.nip}"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>regon:</td>
+                        <td th:text="*{organization.regon}"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><button type="submit" name="correctionNewOrganization">Dodaj nowego<br>fakturobiorcę</button> </td>
+                        <td></td>
+                        <td><button type="submit" name="correctionSelectOrganization">Pobierz z bazy<br>fakturobiorcę</button> </td>
+                    </tr>
+                </table>
+            </td>
+            <input type="hidden" th:field="*{organization.id}">
+            <input type="hidden" th:field="*{organization.name}">
+            <input type="hidden" th:field="*{organization.city}">
+            <input type="hidden" th:field="*{organization.postcode}">
+            <input type="hidden" th:field="*{organization.street}">
+            <input type="hidden" th:field="*{organization.building}">
+            <input type="hidden" th:field="*{organization.flat}">
+            <input type="hidden" th:field="*{organization.nip}">
+            <input type="hidden" th:field="*{organization.regon}">
+        </tr>
+        <tr>
+            <td>
+                Kwota netto:
+            </td>
+            <td>
+                <input id="netto" type="number" step="0.01" th:field="*{netto}" placeholder="xxx.xx">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Kwota brutto:
+            </td>
+            <td>
+                <input id="brutto" type="number" step="0.01" th:field="*{brutto}" disabled>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Stawka VAT:
+            </td>
+            <td>
+                <input id="vat" type="number" th:field="*{vat}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Kwota Podatku:
+            </td>
+            <td>
+                <input id="taxa" type="number" disabled>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Towar/usługa:
+            </td>
+            <td>
+            <textarea  rows = "10" cols = "80"  th:field="*{descryptionSaleProduct}">
+            </textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Metoda płatności:
+            </td>
+            <td colspan="2">
+                <select  th:field="*{paymentMethod}" >
+                    <option value="transfer"  >Przelew</option>
+                    <option value="cash"      >Gotówka</option>
+                    <option value="card"      >Karta</option>
+                    <option value="prepayment">Przedpłata</option>
+                    <option value="download"  >Pobranie</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit" name="saveCorrection">WYSTAW</button>
+            </td>
+            <td>
+
+            </td>
+            <td colspan="2">
+                <button type="submit" name="cancel">ANULUJ</button>
+            </td>
+        </tr>
+    </form>
+</table>
+</body>
+</html>

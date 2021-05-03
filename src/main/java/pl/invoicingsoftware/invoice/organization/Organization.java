@@ -32,9 +32,9 @@ public class Organization extends BaseEntity {
     @Size(min = 2, max = 60)
     private String street; //ulica
     @Column(name = "building")
-    private Long building; //nr domu
+    private String building; //nr domu
     @Column(name = "flat")
-    private Long flat; //nr mieszkania
+    private String flat; //nr mieszkania
 
     @Column(name = "NIP",unique = true)
     //@NotBlank(message = "Poprawny format nr NIP zawiera 10 cyfro w formacie XXX-XXX-XX-XX")
@@ -42,4 +42,13 @@ public class Organization extends BaseEntity {
     @Column(name = "regon", unique = true)
     @REGON(message = "Popranwy REGON zawiera 9 odpowiednich cyfr!")
     private String regon;
+
+    public String adress(){
+        String addres = name+"\n"+postcode+" "+city+"\n"+street+" "+building;
+        if(flat!=null){
+            addres += " "+flat;
+        }
+        addres += "\nNIP: "+nip+"; REGON: "+regon;
+        return addres;
+    }
 }

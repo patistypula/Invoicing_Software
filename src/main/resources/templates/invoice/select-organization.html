@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Invoice</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+<!--    <script type="text/javascript" th:src="@{/js/invoice.js}"></script>-->
+</head>
+<body>
+<h3>Wybierz dane firmy do faktury</h3>
+<table border="1">
+    <tr>
+        <th class="alginCenter">LP</th>
+        <th class="alginCenter">Nazwa organizacji</th>
+        <th class="alginCenter">Adres</th>
+        <th class="alginCenter">NIP</th>
+        <th class="alginCenter">REGON</th>
+        <th></th>
+    </tr>
+    <tr th:each="organization, iter:${organizations}">
+        <form th:object="${invoice}" method="post">
+            <td class="alginCenter" th:text="${iter.index+1}"></td>
+            <td class="alginCenter" th:text="${organization.name}"></td>
+            <td class="alginCenter">
+                <label th:text="${organization.city}"></label>&nbsp;
+                <label th:text="${organization.postcode}"></label>&nbsp;
+                <label th:text="${organization.street}"></label>&nbsp;
+                <label th:text="${organization.building}"></label>&nbsp;
+                <label th:text="${organization.flat}"></label>
+            </td>
+            <td class="alginCenter" th:text="${organization.nip}"></td>
+            <td class="alginCenter" th:text="${organization.regon}"></td>
+            <td class="alginCenter">
+                <input type="submit" class="plusButton" name="addOrganization" th:value="${organization.id}">
+            </td>
+            <input type="hidden" th:field="*{kindInvoicing}">
+            <input type="hidden" th:field="*{dateOfIssue}">
+            <input type="hidden" th:field="*{saleDate}">
+            <input type="hidden" th:field="*{netto}">
+            <input type="hidden" th:field="*{brutto}">
+            <input type="hidden" th:field="*{vat}">
+            <input type="hidden" th:field = "*{descryptionSaleProduct}">
+            <input type="hidden" th:field="*{paymentMethod}">
+        </form>
+    </tr>
+</table>
+</body>
+</html>

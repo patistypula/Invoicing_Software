@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Invoice</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <script type="text/javascript" th:src="@{/js/invoice.js}"></script>
+</head>
+<body>
+<h3>Wystaw nową fakturę:</h3>
+<form th:object="${invoice}" method="post">
+    <table border="1">
+        <tr>
+            <td>
+                Rodzaj faktury:
+            </td>
+            <td>
+                <select  id="kindInvoicing" th:field="*{kindInvoicing}">
+                    <option value="FA" >Faktura</option>
+                    <option value="PRO">Faktura pro-forma</option>
+                    <option value="FZ" >Faktura zaliczkowa</option>
+<!--                    <option value="FK" >Faktura końcowa</option>-->
+                </select>
+            </td>
+            <td>
+                Nr Faktury:
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Data wystawienia:
+            </td>
+            <td>
+                <input type="date" th:value="*{dateOfIssue}" th:field="*{dateOfIssue}">
+            </td>
+            <td>
+                Data spredaży:
+            </td>
+            <td>
+                <input type="date" th:field="*{saleDate}">
+            </td>
+        </tr>
+<!--        <tr id="fk">-->
+<!--            <td colspan="4">-->
+<!--                <table border="0">-->
+<!--                    <tr th:each="advance, iter:${additionals}">-->
+<!--                        <td th:text="${iter.index+1}"></td>-->
+<!--                        <td th:text="${advance.numberInvoicing}"></td>-->
+<!--                        <td th:text="${list[iter.index].descryptionSaleProduct}"></td>-->
+<!--                        <td th:text="${list[iter.index].netto}"></td>-->
+<!--                        <td th:text="${list[iter.index].vat}"></td>-->
+<!--                        <td th:text="${list[iter.index].brutto}"></td>-->
+<!--                    </tr>-->
+<!--                </table>-->
+<!--            </td>-->
+<!--        </tr>-->
+        <tr>
+            <td>
+                Nabywca:
+            </td>
+            <td>
+                <button type="submit" name="newORGANIZATION">Nowy nabywca</button>
+            </td>
+            <td>
+                <button type="submit" name="loadORGANIZATION">Pobierz z bazy</button>
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        <tr th:if="*{organization != null}">
+            <td colspan="4">
+                <table border="0">
+                    <tr>
+                        <td colspan="3" th:text="*{organization.name}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="*{organization.postcode}"></td>
+                        <td th:text="*{organization.city}"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td th:text="*{organization.street}"></td>
+                        <td th:text="*{organization.building}"></td>
+                        <td th:text="*{organization.flat}"></td>
+                    </tr>
+                    <tr>
+                        <td>nip:</td>
+                        <td th:text="*{organization.nip}"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>regon:</td>
+                        <td th:text="*{organization.regon}"></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Kwota netto:
+            </td>
+            <td>
+                <input id="netto" type="number" th:field="*{netto}" step="0.01" placeholder="xxx.xx">
+<!--                pattern="\d{1,}[.]\d{2}"-->
+            </td>
+            <td>
+                Kwota brutto:
+            </td>
+            <td>
+                <input id="brutto" type="number" th:field="*{brutto}" disabled>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Stawka VAT:
+            </td>
+            <td>
+                <input id="vat" type="number" th:field="*{vat}" pattern="\d{1,2}" placeholder="stawka w %">
+            </td>
+            <td>
+                Kwota Podatku:
+            </td>
+            <td>
+                <input id="taxa" type="number" disabled>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Towar/usługa:
+            </td>
+            <td colspan="2">
+                <textarea  rows = "10" cols = "80" th:field = "*{descryptionSaleProduct}">towar/usługa</textarea>
+            </td>
+            <td>
+                <button type="submit" name="descryption">Pobierz z innej<br>faktury</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Metoda płatności:
+            </td>
+            <td colspan="2">
+                <select  th:field="*{paymentMethod}">
+                    <option value="transfer"  >Przelew</option>
+                    <option value="cash"      >Gotówka</option>
+                    <option value="card"      >Karta</option>
+                    <option value="prepayment">Przedpłata</option>
+                    <option value="download"  >Pobranie</option>
+                </select>
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        <input type="hidden" th:field="*{organization.id}">
+        <input type="hidden" th:field="*{organization.name}">
+        <input type="hidden" th:field="*{organization.city}">
+        <input type="hidden" th:field="*{organization.postcode}">
+        <input type="hidden" th:field="*{organization.street}">
+        <input type="hidden" th:field="*{organization.building}">
+        <input type="hidden" th:field="*{organization.flat}">
+        <input type="hidden" th:field="*{organization.nip}">
+        <input type="hidden" th:field="*{organization.regon}">
+        <tr>
+            <td colspan="2">
+                <button type="submit" name="saveInvoice">WYSTAW</button>
+            </td>
+            <td colspan="2">
+                <button type="submit" name="cancel">ANULUJ</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

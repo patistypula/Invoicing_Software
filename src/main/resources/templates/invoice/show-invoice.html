@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show Invoice</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <script type="text/javascript" th:src="@{/js/showInvoice.js}"></script>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <td>
+            Rodzaj faktury:
+        </td>
+        <td>
+            <select  th:value="${invoice.kindInvoicing}" disabled>
+                <option value="FA" >Faktura</option>
+                <option value="PRO">Faktura pro-forma</option>
+                <option value="FZ" >Faktura zaliczkowa</option>
+                <option value="FK" >Faktura końcowa</option>
+            </select>
+        </td>
+        <td>
+            Nr Faktury:
+        </td>
+        <td>
+            <input type="text" th:value="${invoice.numberInvoicing}" disabled>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Data wystawienia:
+        </td>
+        <td>
+            <input type="date" th:value="${invoice.dateOfIssue}" disabled>
+        </td>
+        <td>
+            Data spredaży:
+        </td>
+        <td>
+            <input type="date" th:value="${invoice.saleDate}" disabled>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Nabywca:
+        </td>
+        <td colspan="3">
+            <textarea rows = "10" cols = "80" disabled th:text="${adress}">
+            </textarea>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Kwota netto:
+        </td>
+        <td>
+            <input id="netto" type="number" step="0.01" th:value="${invoice.netto}" disabled>
+        </td>
+        <td>
+            Kwota brutto:
+        </td>
+        <td>
+            <input id="brutto" type="number" step="0.01" th:value="${invoice.brutto}" disabled>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Stawka VAT:
+        </td>
+        <td>
+            <input id="vat" type="number" th:value="${invoice.vat}" disabled>
+        </td>
+        <td>
+            Kwota Podatku:
+        </td>
+        <td>
+            <input id="taxa" type="number" disabled>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Towar/usługa:
+        </td>
+        <td colspan="3">
+            <textarea  rows = "10" cols = "80" disabled th:field="${invoice.descryptionSaleProduct}">
+            </textarea>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Metoda płatności:
+        </td>
+        <td colspan="2">
+            <select  th:value="${invoice.paymentMethod}" disabled>
+                <option value="transfer"  >Przelew</option>
+                <option value="cash"      >Gotówka</option>
+                <option value="card"      >Karta</option>
+                <option value="prepayment">Przedpłata</option>
+                <option value="download"  >Pobranie</option>
+            </select>
+        </td>
+        <td>
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button type="submit" name="ok">OK</button>
+        </td>
+        <td>
+
+        </td>
+        <td colspan="2">
+            <button type="submit" name="cancel">ANULUJ</button>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
